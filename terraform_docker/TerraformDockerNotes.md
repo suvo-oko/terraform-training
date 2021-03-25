@@ -1,6 +1,6 @@
 # Terraform and Docker
 
-These are my notes for Section 2 of the *More than Certified in Terraform** course.
+These are my notes for Section 2 of the [More than Certified in Terraform](https://www.udemy.com/course/terraform-certified/) course.
 
 ## The terraform block
 
@@ -9,7 +9,7 @@ These are my notes for Section 2 of the *More than Certified in Terraform** cour
 
 ## The provider block
 
-- Here, I encountered a problem. I ran `terraform plan` without any parameters and I got the following error:
+- Here, I encountered a problem. I ran `terraform plan` without any parameters, just as it was presented in the lecture, and I got the following error:
 
 ```
 Error: Error initializing Docker client: protocol not available
@@ -19,6 +19,7 @@ Error: Error initializing Docker client: protocol not available
 ```
 
 - I searched this error and the workaround I found was to set the `host` inside the provider block.
+- This is what I found. Apparently, it's an issue with Windows: As of *go-dockerclient* v1.2.0, the default endpoint to the Docker daemon is a UNIX socket.  We need to force it to use the Windows named pipe when running against Docker for Windows.
 - I used this value: `host = "npipe:////.//pipe//docker_engine"`
 - It worked correctly.
 
